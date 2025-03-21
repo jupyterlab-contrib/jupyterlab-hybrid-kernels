@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+mkdir -p ~/.jupyter
+cp jupyter_server_config.py ~/.jupyter/
