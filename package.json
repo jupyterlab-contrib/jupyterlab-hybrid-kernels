@@ -1,6 +1,6 @@
 {
     "name": "jupyterlab-hybrid-kernels",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Use in-browser and regular kernels in JupyterLab",
     "keywords": [
         "jupyter",
