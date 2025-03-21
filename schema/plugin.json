@@ -1,0 +1,8 @@
+{
+  "jupyter.lab.shortcuts": [],
+  "title": "jupyterlab-hybrid-kernels",
+  "description": "jupyterlab-hybrid-kernels settings.",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
+}
