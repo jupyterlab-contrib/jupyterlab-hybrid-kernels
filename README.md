@@ -18,6 +18,12 @@ To install the extension:
 pip install jupyterlab-hybrid-kernels
 ```
 
+Currently, you also need to install the latest pre-releases of JupyterLab or Jupyter Notebook to use this extension:
+
+```bash
+pip install --pre -U jupyterlab notebook
+```
+
 By default, installing JupyterLab or Jupyter Notebook will also install `ipykernel` as the default kernel for Python.
 
 For in-browser kernels, you will need to install one of the available JupyterLite kernels. For example, to install the Pyodide kernel:
