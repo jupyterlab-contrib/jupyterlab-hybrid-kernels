@@ -22,7 +22,7 @@ jobs:
       uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
     - name: Install dependencies
-      run: python -m pip install -U "jupyterlab>=4.0.0,<5"
+      run: python -m pip install --pre -U "jupyterlab>=4.4.0b2,<5"
 
     - name: Lint the extension
       run: |
@@ -74,7 +74,7 @@ jobs:
         sudo rm -rf $(which node)
         sudo rm -rf $(which node)
 
-        pip install "jupyterlab>=4.0.0,<5" jupyterlab_hybrid_kernels*.whl
+        pip install --pre "jupyterlab>=4.4.0b2,<5" jupyterlab_hybrid_kernels*.whl
 
 
         jupyter labextension list
@@ -104,7 +104,7 @@ jobs:
     - name: Install the extension
       run: |
         set -eux
-        python -m pip install "jupyterlab>=4.0.0,<5" jupyterlab_hybrid_kernels*.whl
+        python -m pip install --pre "jupyterlab>=4.4.0b2,<5" jupyterlab_hybrid_kernels*.whl
 
     - name: Install dependencies
       working-directory: ui-tests
