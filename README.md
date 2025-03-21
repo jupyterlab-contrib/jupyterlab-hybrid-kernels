@@ -6,6 +6,9 @@ Use in-browser (JupyterLite) and regular Jupyter kernels together in JupyterLab 
 
 https://github.com/user-attachments/assets/a6028cce-e613-479c-b56f-d090810e7638
 
+> [!WARNING]
+> This extension is in early development and should be considered experimental.
+
 ## Requirements
 
 - JupyterLab >= 4.4.0b2 or Jupyter Notebook >= 7.4.0b2
