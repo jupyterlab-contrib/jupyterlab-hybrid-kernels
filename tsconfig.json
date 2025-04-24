@@ -19,7 +19,7 @@
     "strict": true,
     "strictNullChecks": true,
     "target": "ES2020",
-    "types": ["jest"]
+    "types": ["jest", "emscripten"],
   },
   "include": ["src/*"]
 }
