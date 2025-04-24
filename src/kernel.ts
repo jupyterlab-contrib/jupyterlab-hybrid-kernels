@@ -5,11 +5,7 @@ import {
   ServerConnection
 } from '@jupyterlab/services';
 
-import {
-  LiteKernelManager,
-  IKernelSpecs,
-  IKernelClient
-} from '@jupyterlite/kernel';
+import { IKernelSpecs, IKernelClient } from '@jupyterlite/kernel';
 
 import { ISignal, Signal } from '@lumino/signaling';
 
@@ -28,15 +24,13 @@ export class HybridKernelManager
       serverSettings
     });
 
-    // TODO: replace with KernelManager + LiteKernelClient later
-    this._liteKernelManager = new LiteKernelManager({
+    this._liteKernelManager = new KernelManager({
       serverSettings: {
         ...ServerConnection.makeSettings(),
         ...serverSettings,
         WebSocket
       },
-      kernelClient,
-      kernelSpecs
+      kernelAPIClient: kernelClient
     });
     this._liteKernelSpecs = kernelSpecs;
 
@@ -163,7 +157,7 @@ export class HybridKernelManager
   }
 
   private _kernelManager: Kernel.IManager;
-  private _liteKernelManager: LiteKernelManager;
+  private _liteKernelManager: Kernel.IManager;
   private _liteKernelSpecs: IKernelSpecs;
   private _runningChanged = new Signal<this, Kernel.IModel[]>(this);
   private _connectionFailure = new Signal<this, Error>(this);
