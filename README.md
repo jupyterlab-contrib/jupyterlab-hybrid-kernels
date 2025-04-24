@@ -11,7 +11,7 @@ https://github.com/user-attachments/assets/a6028cce-e613-479c-b56f-d090810e7638
 
 ## Requirements
 
-- JupyterLab >= 4.4.0b2 or Jupyter Notebook >= 7.4.0b2
+- JupyterLab >= 4.4.0 or Jupyter Notebook >= 7.4.0
 
 ## Install
 
@@ -21,10 +21,10 @@ To install the extension:
 pip install jupyterlab-hybrid-kernels
 ```
 
-Currently, you also need to install the latest pre-releases of JupyterLab or Jupyter Notebook to use this extension:
+Currently, you also need to install the latest releases of JupyterLab or Jupyter Notebook to use this extension:
 
 ```bash
-pip install --pre -U jupyterlab notebook
+pip install jupyterlab>=4.4.0 notebook>=7.4.0
 ```
 
 By default, installing JupyterLab or Jupyter Notebook will also install `ipykernel` as the default kernel for Python.
