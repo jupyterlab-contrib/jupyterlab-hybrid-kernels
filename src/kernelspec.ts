@@ -5,7 +5,8 @@ import {
   ServerConnection
 } from '@jupyterlab/services';
 
-import { IKernelSpecs, LiteKernelSpecs } from '@jupyterlite/kernel';
+import { IKernelSpecs, LiteKernelSpecClient } from '@jupyterlite/kernel';
+
 import { ISignal, Signal } from '@lumino/signaling';
 
 export class HybridKernelSpecManager
@@ -17,9 +18,14 @@ export class HybridKernelSpecManager
     this._kernelSpecManager = new KernelSpecManager({
       serverSettings: options.serverSettings
     });
-    this._liteKernelSpecManager = new LiteKernelSpecs({
-      kernelSpecs: options.kernelSpecs,
-      serverSettings: options.serverSettings
+    const { kernelSpecs, serverSettings } = options;
+    const kernelSpecAPIClient = new LiteKernelSpecClient({
+      kernelSpecs,
+      serverSettings
+    });
+    this._liteKernelSpecManager = new KernelSpecManager({
+      kernelSpecAPIClient,
+      serverSettings
     });
   }
 
@@ -81,7 +87,7 @@ export class HybridKernelSpecManager
   }
 
   private _kernelSpecManager: KernelSpec.IManager;
-  private _liteKernelSpecManager: LiteKernelSpecs;
+  private _liteKernelSpecManager: KernelSpec.IManager;
   private _isReady = false;
   private _connectionFailure = new Signal<this, Error>(this);
   private _ready: Promise<void> = Promise.resolve(void 0);
