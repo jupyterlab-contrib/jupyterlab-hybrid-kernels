@@ -121,17 +121,6 @@ folder is located. Then you can remove the symlink named `jupyterlab-hybrid-kern
 
 ### Testing the extension
 
-#### Frontend tests
-
-This extension is using [Jest](https://jestjs.io/) for JavaScript code testing.
-
-To execute them, execute:
-
-```sh
-jlpm
-jlpm test
-```
-
 #### Integration tests
 
 This extension uses [Playwright](https://playwright.dev/docs/intro) for the integration tests (aka user level tests).
