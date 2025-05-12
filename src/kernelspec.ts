@@ -27,6 +27,10 @@ export class HybridKernelSpecManager
       kernelSpecAPIClient,
       serverSettings
     });
+    // lite kernels specs may be added late in the plugin activation process
+    kernelSpecs.changed.connect(() => {
+      this.refreshSpecs();
+    });
   }
 
   /**
