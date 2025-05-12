@@ -18,8 +18,7 @@
     "rootDir": "src",
     "strict": true,
     "strictNullChecks": true,
-    "target": "ES2020",
-    "types": ["jest", "emscripten"]
+    "target": "ES2020"
   },
   "include": ["src/*"]
 }
