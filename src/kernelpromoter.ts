@@ -1,10 +1,13 @@
-import { ISessionContext } from '@jupyterlab/apputils';
 import { INotebookTracker, NotebookPanel } from '@jupyterlab/notebook';
 import { ServiceManager, Session } from '@jupyterlab/services';
 import { IKernelSpecs } from '@jupyterlite/kernel';
 import { ISignal, Signal } from '@lumino/signaling';
-import { Dialog, showDialog } from '@jupyterlab/apputils';
-import { ToolbarButton } from '@jupyterlab/apputils';
+import {
+  Dialog,
+  ISessionContext,
+  showDialog,
+  ToolbarButton
+} from '@jupyterlab/apputils';
 import { fileUploadIcon } from '@jupyterlab/ui-components';
 import { Widget } from '@lumino/widgets';
 
@@ -36,7 +39,7 @@ export class KernelPromoter {
   /**
    * A signal emitted when a kernel is promoted from lite to server
    */
-  get kernelPromoted(): ISignal<this, Session.ISessionConnection> {
+  get kernelPromoted(): ISignal<this, void> {
     return this._kernelPromoted;
   }
 
@@ -62,37 +65,44 @@ export class KernelPromoter {
    * Promote a session's kernel from lite to server
    *
    * @param session - The session to promote
+   * @param sessionContext - The optional session context to update with the new kernel
    * @returns A promise that resolves when the kernel is promoted
    */
-  async promoteKernel(
-    session: Session.ISessionConnection
-  ): Promise<Session.ISessionConnection> {
-    if (!this.isLiteKernel(session)) {
-      return session;
+  async promoteKernel(sessionContext: ISessionContext): Promise<boolean> {
+    const { session } = sessionContext;
+    if (!session || !this.isLiteKernel(session)) {
+      return false;
     }
 
-    // Store the current kernel name
+    // Store the current kernel name and session information
     const kernelName = session.kernel?.name ?? '';
-    const path = session.path;
-    const type = session.type;
-    const name = path;
+    const oldSessionId = session.id;
 
     try {
-      // Kill the lite kernel
+      // First shutdown the lite kernel
       await session.shutdown();
 
-      // Start a server kernel with the same name using the service manager
-      const newSession = await this._serviceManager.sessions.startNew({
-        path,
-        type,
-        name,
-        kernel: {
-          name: kernelName
-        }
+      sessionContext.changeKernel({
+        name: 'python3'
       });
 
       // Emit the signal
-      this._kernelPromoted.emit(newSession);
+      this._kernelPromoted.emit();
+
+      // Terminate/cleanup the old lite session
+      try {
+        // Make sure the old session is fully terminated
+        await this._serviceManager.sessions.shutdown(oldSessionId);
+      } catch (terminationError) {
+        // Ignore any errors during termination, as the session might already be gone
+        console.debug(
+          'Could not terminate old lite kernel session:',
+          terminationError
+        );
+      }
+
+      // Force a refresh of the running sessions to clean up the UI
+      await this._serviceManager.sessions.refreshRunning();
 
       // Show a success message
       void showDialog({
@@ -101,7 +111,7 @@ export class KernelPromoter {
         buttons: [Dialog.okButton()]
       });
 
-      return newSession;
+      return true;
     } catch (error) {
       console.error('Failed to promote kernel:', error);
 
@@ -112,7 +122,7 @@ export class KernelPromoter {
         buttons: [Dialog.okButton()]
       });
 
-      return session;
+      return false;
     }
   }
 
@@ -129,7 +139,7 @@ export class KernelPromoter {
       onClick: async () => {
         const session = sessionContext.session;
         if (session && this.isLiteKernel(session)) {
-          await this.promoteKernel(session);
+          await this.promoteKernel(sessionContext);
         } else {
           void showDialog({
             title: 'Cannot Promote Kernel',
@@ -182,7 +192,7 @@ export class KernelPromoter {
               ]
             }).then(result => {
               if (result.button.accept) {
-                void this.promoteKernel(panel.sessionContext.session!);
+                void this.promoteKernel(panel.sessionContext);
               }
             });
           }
@@ -196,7 +206,7 @@ export class KernelPromoter {
   private _serviceManager: ServiceManager.IManager;
   private _autoPromote: boolean;
   private _errorPatterns: string[];
-  private _kernelPromoted = new Signal<this, Session.ISessionConnection>(this);
+  private _kernelPromoted = new Signal<this, void>(this);
 }
 
 /**
