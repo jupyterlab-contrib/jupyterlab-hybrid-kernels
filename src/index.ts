@@ -30,6 +30,8 @@ import { HybridKernelSpecManager } from './kernelspec';
 
 import { HybridSessionManager } from './session';
 
+import kernelPromoterPlugin from './promoterplugin';
+
 // TODO: find a better to include these packages, as they are expected to be in the
 // shared scope by kernels as singletons
 import '@jupyterlite/server';
@@ -183,6 +185,7 @@ const plugins = [
   kernelManagerPlugin,
   kernelSpecManagerPlugin,
   liteKernelSpecManagerPlugin,
-  sessionManagerPlugin
+  sessionManagerPlugin,
+  kernelPromoterPlugin
 ];
 export default plugins;

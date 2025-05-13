@@ -3,6 +3,22 @@
   "title": "jupyterlab-hybrid-kernels",
   "description": "jupyterlab-hybrid-kernels settings.",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "autoPromote": {
+      "type": "boolean",
+      "title": "Auto-promote kernels",
+      "description": "Whether to automatically prompt for promotion when errors indicate server kernel is needed",
+      "default": true
+    },
+    "errorPatterns": {
+      "type": "array",
+      "title": "Error patterns for promotion",
+      "description": "Error patterns that will trigger automatic kernel promotion",
+      "items": {
+        "type": "string"
+      },
+      "default": ["ModuleNotFoundError", "MemoryError"]
+    }
+  },
   "additionalProperties": false
 }
