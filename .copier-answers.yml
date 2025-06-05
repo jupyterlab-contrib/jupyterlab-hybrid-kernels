@@ -9,6 +9,6 @@ kind: frontend
 labextension_name: jupyterlab-hybrid-kernels
 project_short_description: Use in-browser and regular kernels in JupyterLab
 python_name: jupyterlab_hybrid_kernels
-repository: https://github.com/jupyterlab-contribjupyterlab-hybrid-kernels
+repository: https://github.com/jupyterlab-contrib/jupyterlab-hybrid-kernels
 test: true
 
