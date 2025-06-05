@@ -1,7 +1,7 @@
 # jupyterlab-hybrid-kernels
 
-[![Extension status](https://img.shields.io/badge/status-draft-critical "draft")](https://jupyterlab-contrib.github.io/)
-[![Github Actions Status](https://github.com/jtpio/jupyterlab-hybrid-kernels/workflows/Build/badge.svg)](https://github.com/jtpio/jupyterlab-hybrid-kernels/actions/workflows/build.yml)
+[![Extension status](https://img.shields.io/badge/status-draft-critical 'draft')](https://jupyterlab-contrib.github.io/)
+[![Github Actions Status](https://github.com/jupyterlab-contrib/jupyterlab-hybrid-kernels/workflows/Build/badge.svg)](https://github.com/jupyterlab-contrib/jupyterlab-hybrid-kernels/actions/workflows/build.yml)
 
 Use in-browser (JupyterLite) and regular Jupyter kernels together in JupyterLab and Jupyter Notebook.
 
