@@ -7,9 +7,9 @@
         "jupyterlab",
         "jupyterlab-extension"
     ],
-    "homepage": "https://github.com/jtpio/jupyterlab-hybrid-kernels",
+    "homepage": "https://github.com/jupyterlab-contribjupyterlab-hybrid-kernels",
     "bugs": {
-        "url": "https://github.com/jtpio/jupyterlab-hybrid-kernels/issues"
+        "url": "https://github.com/jupyterlab-contribjupyterlab-hybrid-kernels/issues"
     },
     "license": "BSD-3-Clause",
     "author": "Jeremy Tuloup",
@@ -24,7 +24,7 @@
     "style": "style/index.css",
     "repository": {
         "type": "git",
-        "url": "https://github.com/jtpio/jupyterlab-hybrid-kernels.git"
+        "url": "https://github.com/jupyterlab-contribjupyterlab-hybrid-kernels.git"
     },
     "scripts": {
         "build": "jlpm build:lib && jlpm build:labextension:dev && jlpm build:service-worker",
