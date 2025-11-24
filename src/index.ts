@@ -72,7 +72,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
  * The client for managing in-browser kernels
  */
 const kernelClientPlugin: ServiceManagerPlugin<Kernel.IKernelAPIClient> = {
-  id: '@jupyterlite/services-extension:kernel-client',
+  id: 'jupyterlab-hybrid-kernels:kernel-client',
   description: 'The client for managing in-browser kernels',
   autoStart: true,
   requires: [IKernelSpecs],
