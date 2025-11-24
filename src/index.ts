@@ -1,18 +1,20 @@
-import {
+import type {
   JupyterFrontEnd,
   JupyterFrontEndPlugin
 } from '@jupyterlab/application';
 
-import {
-  IKernelManager,
-  IKernelSpecManager,
-  IServerSettings,
-  ISessionManager,
+import type {
   Kernel,
   KernelSpec,
   ServerConnection,
   ServiceManagerPlugin,
   Session
+} from '@jupyterlab/services';
+import {
+  IKernelManager,
+  IKernelSpecManager,
+  IServerSettings,
+  ISessionManager
 } from '@jupyterlab/services';
 
 import { ISettingRegistry } from '@jupyterlab/settingregistry';

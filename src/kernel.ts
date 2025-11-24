@@ -1,13 +1,14 @@
+import type { Kernel } from '@jupyterlab/services';
 import {
   BaseManager,
-  Kernel,
   KernelManager,
   ServerConnection
 } from '@jupyterlab/services';
 
-import { IKernelSpecs, IKernelClient } from '@jupyterlite/services';
+import type { IKernelSpecs, IKernelClient } from '@jupyterlite/services';
 
-import { ISignal, Signal } from '@lumino/signaling';
+import type { ISignal } from '@lumino/signaling';
+import { Signal } from '@lumino/signaling';
 
 import { WebSocket } from 'mock-socket';
 
