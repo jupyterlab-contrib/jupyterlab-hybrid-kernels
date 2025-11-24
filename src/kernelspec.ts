@@ -1,13 +1,11 @@
-import {
-  BaseManager,
-  KernelSpec,
-  KernelSpecManager,
-  ServerConnection
-} from '@jupyterlab/services';
+import type { KernelSpec, ServerConnection } from '@jupyterlab/services';
+import { BaseManager, KernelSpecManager } from '@jupyterlab/services';
 
-import { IKernelSpecs, LiteKernelSpecClient } from '@jupyterlite/kernel';
+import type { IKernelSpecs } from '@jupyterlite/services';
+import { LiteKernelSpecClient } from '@jupyterlite/services';
 
-import { ISignal, Signal } from '@lumino/signaling';
+import type { ISignal } from '@lumino/signaling';
+import { Signal } from '@lumino/signaling';
 
 export class HybridKernelSpecManager
   extends BaseManager

@@ -1,11 +1,13 @@
-import { BaseManager, Session, SessionManager } from '@jupyterlab/services';
-import {
+import type { Session } from '@jupyterlab/services';
+import { BaseManager, SessionManager } from '@jupyterlab/services';
+import type {
   IKernelClient,
   IKernelSpecs,
   LiteKernelClient
-} from '@jupyterlite/kernel';
-import { LiteSessionClient } from '@jupyterlite/session';
-import { ISignal, Signal } from '@lumino/signaling';
+} from '@jupyterlite/services';
+import { LiteSessionClient } from '@jupyterlite/services';
+import type { ISignal } from '@lumino/signaling';
+import { Signal } from '@lumino/signaling';
 
 export class HybridSessionManager
   extends BaseManager
