@@ -5,7 +5,7 @@ import {
   ServerConnection
 } from '@jupyterlab/services';
 
-import { IKernelSpecs, IKernelClient } from '@jupyterlite/kernel';
+import { IKernelSpecs, IKernelClient } from '@jupyterlite/services';
 
 import { ISignal, Signal } from '@lumino/signaling';
 

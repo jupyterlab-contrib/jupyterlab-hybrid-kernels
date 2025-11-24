@@ -22,18 +22,13 @@ import {
   IKernelSpecs,
   KernelSpecs,
   LiteKernelClient
-} from '@jupyterlite/kernel';
+} from '@jupyterlite/services';
 
 import { HybridKernelManager } from './kernel';
 
 import { HybridKernelSpecManager } from './kernelspec';
 
 import { HybridSessionManager } from './session';
-
-// TODO: find a better to include these packages, as they are expected to be in the
-// shared scope by kernels as singletons
-import '@jupyterlite/server';
-import '@jupyterlite/contents';
 
 /**
  * Initialization data for the jupyterlab-hybrid-kernels extension.

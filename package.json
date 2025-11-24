@@ -27,13 +27,12 @@
         "url": "https://github.com/jupyterlab-contrib/jupyterlab-hybrid-kernels.git"
     },
     "scripts": {
-        "build": "jlpm build:lib && jlpm build:labextension:dev && jlpm build:service-worker",
-        "build:prod": "jlpm clean && jlpm build:lib:prod && jlpm build:labextension && jlpm build:service-worker",
+        "build": "jlpm build:lib && jlpm build:labextension:dev",
+        "build:prod": "jlpm clean && jlpm build:lib:prod && jlpm build:labextension",
         "build:labextension": "jupyter labextension build .",
         "build:labextension:dev": "jupyter labextension build --development True .",
         "build:lib": "tsc --sourceMap",
         "build:lib:prod": "tsc",
-        "build:service-worker": "cp node_modules/@jupyterlite/server/lib/service-worker.js jupyterlab_hybrid_kernels/labextension/static/service-worker.js",
         "clean": "jlpm clean:lib",
         "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
         "clean:lintcache": "rimraf .eslintcache .stylelintcache",
@@ -58,11 +57,8 @@
         "@jupyterlab/coreutils": "^6.4.2",
         "@jupyterlab/services": "^7.4.2",
         "@jupyterlab/settingregistry": "^4.4.2",
-        "@jupyterlite/contents": "^0.6.1",
-        "@jupyterlite/kernel": "^0.6.1",
-        "@jupyterlite/server": "^0.6.1",
-        "@jupyterlite/session": "^0.6.1",
-        "@lumino/signaling": "^2.1.4",
+        "@jupyterlite/services": "^0.7.0-rc.1",
+        "@lumino/signaling": "^2.1.5",
         "mock-socket": "^9.3.1"
     },
     "devDependencies": {
@@ -108,15 +104,7 @@
             "@jupyterlab/services-extension:session-manager"
         ],
         "sharedPackages": {
-            "@jupyterlite/contents": {
-                "singleton": true,
-                "bundled": true
-            },
-            "@jupyterlite/kernel": {
-                "singleton": true,
-                "bundled": true
-            },
-            "@jupyterlite/server": {
+            "@jupyterlite/services": {
                 "singleton": true,
                 "bundled": true
             }
@@ -169,6 +157,13 @@
             "@typescript-eslint/no-explicit-any": "off",
             "@typescript-eslint/no-namespace": "off",
             "@typescript-eslint/no-use-before-define": "off",
+            "@typescript-eslint/consistent-type-imports": [
+                "error",
+                {
+                    "prefer": "type-imports",
+                    "fixStyle": "separate-type-imports"
+                }
+            ],
             "@typescript-eslint/quotes": [
                 "error",
                 "single",

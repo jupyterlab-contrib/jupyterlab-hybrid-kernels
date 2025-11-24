@@ -2,9 +2,9 @@ import { BaseManager, Session, SessionManager } from '@jupyterlab/services';
 import {
   IKernelClient,
   IKernelSpecs,
-  LiteKernelClient
-} from '@jupyterlite/kernel';
-import { LiteSessionClient } from '@jupyterlite/session';
+  LiteKernelClient,
+  LiteSessionClient
+} from '@jupyterlite/services';
 import { ISignal, Signal } from '@lumino/signaling';
 
 export class HybridSessionManager
