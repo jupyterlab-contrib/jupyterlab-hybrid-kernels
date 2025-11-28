@@ -1,5 +1,9 @@
 import type { Session } from '@jupyterlab/services';
-import { BaseManager, SessionManager } from '@jupyterlab/services';
+import {
+  BaseManager,
+  ServerConnection,
+  SessionManager
+} from '@jupyterlab/services';
 import type {
   IKernelClient,
   IKernelSpecs,
@@ -9,10 +13,19 @@ import { LiteSessionClient } from '@jupyterlite/services';
 import type { ISignal } from '@lumino/signaling';
 import { Signal } from '@lumino/signaling';
 
+import { HybridKernelClient } from './kernelclient';
+
+/**
+ * A hybrid session manager that combines in-browser (lite) sessions
+ * with remote server sessions.
+ */
 export class HybridSessionManager
   extends BaseManager
   implements Session.IManager
 {
+  /**
+   * Construct a new hybrid session manager.
+   */
   constructor(options: HybridSessionManager.IOptions) {
     super(options);
 
@@ -26,9 +39,15 @@ export class HybridSessionManager
       serverSettings
     });
 
+    const hybridKernelClient = new HybridKernelClient({
+      liteKernelClient: kernelClient as LiteKernelClient,
+      kernelSpecs,
+      serverSettings: serverSettings ?? ServerConnection.makeSettings()
+    });
+
     const sessionClient = new LiteSessionClient({
       serverSettings,
-      kernelClient: kernelClient as LiteKernelClient
+      kernelClient: hybridKernelClient as unknown as LiteKernelClient
     });
     this._liteSessionManager = new SessionManager({
       kernelManager,
@@ -47,16 +66,25 @@ export class HybridSessionManager
     });
   }
 
+  /**
+   * Dispose of the resources used by the manager.
+   */
   dispose(): void {
     this._sessionManager.dispose();
     this._liteSessionManager.dispose();
     super.dispose();
   }
 
+  /**
+   * Test whether the manager is ready.
+   */
   get isReady(): boolean {
     return this._liteSessionManager.isReady && this._sessionManager.isReady;
   }
 
+  /**
+   * A promise that fulfills when the manager is ready.
+   */
   get ready(): Promise<void> {
     return Promise.all([
       this._sessionManager.ready,
@@ -78,6 +106,9 @@ export class HybridSessionManager
     return this._connectionFailure;
   }
 
+  /**
+   * Connect to a running session.
+   */
   connectTo(
     options: Omit<
       Session.ISessionConnection.IOptions,
@@ -91,6 +122,9 @@ export class HybridSessionManager
     return this._sessionManager.connectTo(options);
   }
 
+  /**
+   * Create an iterator over the running sessions.
+   */
   running(): IterableIterator<Session.IModel> {
     const sessionManager = this._sessionManager;
     const liteSessionManager = this._liteSessionManager;
@@ -101,6 +135,9 @@ export class HybridSessionManager
     return combinedRunning();
   }
 
+  /**
+   * Force a refresh of the running sessions.
+   */
   async refreshRunning(): Promise<void> {
     await Promise.all([
       this._sessionManager.refreshRunning(),
@@ -108,6 +145,9 @@ export class HybridSessionManager
     ]);
   }
 
+  /**
+   * Start a new session.
+   */
   async startNew(
     createOptions: Session.ISessionOptions,
     connectOptions: Omit<
@@ -122,6 +162,9 @@ export class HybridSessionManager
     return this._sessionManager.startNew(createOptions, connectOptions);
   }
 
+  /**
+   * Shut down a session by id.
+   */
   async shutdown(id: string): Promise<void> {
     if (this._isLiteSession({ id })) {
       return this._liteSessionManager.shutdown(id);
@@ -129,6 +172,9 @@ export class HybridSessionManager
     return this._sessionManager.shutdown(id);
   }
 
+  /**
+   * Shut down all sessions.
+   */
   async shutdownAll(): Promise<void> {
     await Promise.all([
       this._sessionManager.shutdownAll(),
@@ -136,10 +182,16 @@ export class HybridSessionManager
     ]);
   }
 
+  /**
+   * Stop a session if it is needed.
+   */
   async stopIfNeeded(path: string): Promise<void> {
     // TODO
   }
 
+  /**
+   * Find a session by id.
+   */
   async findById(id: string): Promise<Session.IModel | undefined> {
     const session = await this._sessionManager.findById(id);
     if (session) {
@@ -148,6 +200,9 @@ export class HybridSessionManager
     return this._liteSessionManager.findById(id);
   }
 
+  /**
+   * Find a session by path.
+   */
   async findByPath(path: string): Promise<Session.IModel | undefined> {
     const session = await this._sessionManager.findByPath(path);
     if (session) {
@@ -156,6 +211,9 @@ export class HybridSessionManager
     return this._liteSessionManager.findByPath(path);
   }
 
+  /**
+   * Check if a session is a lite session.
+   */
   private _isLiteSession(model: Pick<Session.IModel, 'id'>): boolean {
     const running = Array.from(this._liteSessionManager.running()).find(
       session => session.id === model.id
