@@ -206,7 +206,7 @@
         "rules": {
             "csstree/validator": true,
             "property-no-vendor-prefix": null,
-            "selector-class-pattern": "^()(-[A-z\\d]+)*$",
+            "selector-class-pattern": "^(jp-[A-Z][A-Za-z\\d]*(-[A-Za-z\\d]+)*)$",
             "selector-no-vendor-prefix": null,
             "value-no-vendor-prefix": null
         }

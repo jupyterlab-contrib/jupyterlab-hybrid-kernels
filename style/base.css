@@ -15,11 +15,11 @@
 }
 
 .jp-HybridKernels-status.jp-HybridKernels-connected {
-  background-color: rgba(76, 175, 80, 0.2);
+  background-color: rgb(76 175 80 / 20%);
 }
 
 .jp-HybridKernels-status.jp-HybridKernels-connected:hover {
-  background-color: rgba(76, 175, 80, 0.4);
+  background-color: rgb(76 175 80 / 40%);
 }
 
 .jp-HybridKernels-status.jp-HybridKernels-connected svg path {
@@ -27,11 +27,11 @@
 }
 
 .jp-HybridKernels-status.jp-HybridKernels-disconnected {
-  background-color: rgba(255, 152, 0, 0.2);
+  background-color: rgb(255 152 0 / 20%);
 }
 
 .jp-HybridKernels-status.jp-HybridKernels-disconnected:hover {
-  background-color: rgba(255, 152, 0, 0.4);
+  background-color: rgb(255 152 0 / 40%);
 }
 
 .jp-HybridKernels-status.jp-HybridKernels-disconnected svg path {
