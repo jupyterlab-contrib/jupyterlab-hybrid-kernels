@@ -24,6 +24,8 @@ import {
 
 import { URLExt } from '@jupyterlab/coreutils';
 
+import { ITranslator, nullTranslator } from '@jupyterlab/translation';
+
 import { linkIcon } from '@jupyterlab/ui-components';
 
 import { Widget } from '@lumino/widgets';
@@ -155,14 +157,18 @@ const configDialogPlugin: JupyterFrontEndPlugin<void> = {
   description: 'Provides a dialog to configure the remote server',
   autoStart: true,
   requires: [IRemoteServerConfig, IKernelSpecManager, IToolbarWidgetRegistry],
-  optional: [ICommandPalette],
+  optional: [ICommandPalette, ITranslator],
   activate: (
     app: JupyterFrontEnd,
     remoteConfig: IRemoteServerConfig,
     kernelSpecManager: KernelSpec.IManager,
     toolbarRegistry: IToolbarWidgetRegistry,
-    palette: ICommandPalette | null
+    palette: ICommandPalette | null,
+    translator: ITranslator | null
   ): void => {
+    const trans = (translator ?? nullTranslator).load(
+      'jupyterlab_hybrid_kernels'
+    );
     const isRemoteMode = getHybridKernelsMode() === 'remote';
 
     if (isRemoteMode) {
@@ -176,20 +182,24 @@ const configDialogPlugin: JupyterFrontEndPlugin<void> = {
     }
 
     app.commands.addCommand(CommandIds.configureRemoteServer, {
-      label: 'Configure Remote Jupyter Server',
-      caption: 'Configure the remote Jupyter server connection',
+      label: trans.__('Configure Remote Jupyter Server'),
+      caption: trans.__('Configure the remote Jupyter server connection'),
       icon: linkIcon,
       isVisible: () => isRemoteMode,
       execute: async () => {
         const body = new RemoteServerConfigBody({
           baseUrl: remoteConfig.baseUrl,
-          token: remoteConfig.token
+          token: remoteConfig.token,
+          trans
         });
 
         const result = await showDialog({
-          title: 'Remote Server Configuration',
+          title: trans.__('Remote Server Configuration'),
           body,
-          buttons: [Dialog.cancelButton(), Dialog.okButton({ label: 'Save' })],
+          buttons: [
+            Dialog.cancelButton(),
+            Dialog.okButton({ label: trans.__('Save') })
+          ],
           focusNodeSelector: 'input'
         });
 
@@ -223,7 +233,7 @@ const configDialogPlugin: JupyterFrontEndPlugin<void> = {
     if (palette) {
       palette.addItem({
         command: CommandIds.configureRemoteServer,
-        category: 'Kernel'
+        category: trans.__('Kernel')
       });
     }
   }

@@ -1,4 +1,5 @@
 import type { Dialog } from '@jupyterlab/apputils';
+import type { TranslationBundle } from '@jupyterlab/translation';
 import { Widget } from '@lumino/widgets';
 
 /**
@@ -65,13 +66,15 @@ export class RemoteServerConfigBody
     super();
     this.addClass('jp-HybridKernels-configDialog');
 
+    const trans = options.trans;
+
     // Full URL input section
     const fullUrlSection = document.createElement('div');
     fullUrlSection.className = 'jp-HybridKernels-formSection';
 
     const fullUrlLabel = document.createElement('label');
     fullUrlLabel.className = 'jp-HybridKernels-label';
-    fullUrlLabel.textContent = 'Paste Full URL (with token)';
+    fullUrlLabel.textContent = trans.__('Paste Full URL (with token)');
     fullUrlLabel.htmlFor = 'hybrid-kernels-full-url';
     fullUrlSection.appendChild(fullUrlLabel);
 
@@ -85,8 +88,9 @@ export class RemoteServerConfigBody
 
     const fullUrlHelp = document.createElement('small');
     fullUrlHelp.className = 'jp-HybridKernels-help';
-    fullUrlHelp.textContent =
-      'Paste a full JupyterHub/Binder URL to auto-fill the fields below';
+    fullUrlHelp.textContent = trans.__(
+      'Paste a full JupyterHub/Binder URL to auto-fill the fields below'
+    );
     fullUrlSection.appendChild(fullUrlHelp);
 
     this.node.appendChild(fullUrlSection);
@@ -102,7 +106,7 @@ export class RemoteServerConfigBody
 
     const serverUrlLabel = document.createElement('label');
     serverUrlLabel.className = 'jp-HybridKernels-label';
-    serverUrlLabel.textContent = 'Server URL';
+    serverUrlLabel.textContent = trans.__('Server URL');
     serverUrlLabel.htmlFor = 'hybrid-kernels-server-url';
     serverUrlSection.appendChild(serverUrlLabel);
 
@@ -122,7 +126,7 @@ export class RemoteServerConfigBody
 
     const tokenLabel = document.createElement('label');
     tokenLabel.className = 'jp-HybridKernels-label';
-    tokenLabel.textContent = 'Authentication Token';
+    tokenLabel.textContent = trans.__('Authentication Token');
     tokenLabel.htmlFor = 'hybrid-kernels-token';
     tokenSection.appendChild(tokenLabel);
 
@@ -130,7 +134,7 @@ export class RemoteServerConfigBody
     this._tokenInput.type = 'password';
     this._tokenInput.id = 'hybrid-kernels-token';
     this._tokenInput.className = 'jp-mod-styled jp-HybridKernels-input';
-    this._tokenInput.placeholder = 'Enter token (optional)';
+    this._tokenInput.placeholder = trans.__('Enter token (optional)');
     this._tokenInput.value = options.token;
     tokenSection.appendChild(this._tokenInput);
 
@@ -189,5 +193,10 @@ export namespace RemoteServerConfigBody {
      * The initial token value.
      */
     token: string;
+
+    /**
+     * The translation bundle.
+     */
+    trans: TranslationBundle;
   }
 }
