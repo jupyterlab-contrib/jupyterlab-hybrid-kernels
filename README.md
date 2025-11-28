@@ -43,6 +43,46 @@ This extension lets you use in-browser kernels (like Pyodide) and regular Jupyte
 > [!NOTE]
 > While regular Jupyter kernels can be used across tabs and persist after reloading the page, in-browser kernels are only available on the page or browser tab where they were started, and destroyed on page reload.
 
+### Operating Modes
+
+This extension supports two operating modes, configured via the `hybridKernelsMode` PageConfig option:
+
+#### Hybrid Mode (default)
+
+In hybrid mode (`hybridKernelsMode: 'hybrid'`), the extension shows:
+
+- Kernels from the local Jupyter server (e.g., Python, R)
+- In-browser lite kernels (e.g., Pyodide)
+
+This is the default mode when running JupyterLab with a local Jupyter server. No additional configuration is needed.
+
+#### Remote Mode
+
+In remote mode (`hybridKernelsMode: 'remote'`), the extension shows:
+
+- In-browser lite kernels
+- Optionally, kernels from a remote Jupyter server (configured via the "Configure Remote Jupyter Server" command)
+
+This mode is designed for JupyterLite or similar environments where there's no local Jupyter server. To enable remote mode, set the PageConfig option:
+
+```html
+<script id="jupyter-config-data" type="application/json">
+  {
+    "hybridKernelsMode": "remote"
+  }
+</script>
+```
+
+Or in `jupyter-lite.json`:
+
+```json
+{
+  "jupyter-config-data": {
+    "hybridKernelsMode": "remote"
+  }
+}
+```
+
 ### File system access from in-browser kernels
 
 In-browser kernels like Pyodide (via `jupyterlite-pyodide-kernel`) can access the files shown in the JupyterLab file browser.
