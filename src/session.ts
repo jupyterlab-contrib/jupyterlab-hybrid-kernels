@@ -183,10 +183,13 @@ export class HybridSessionManager
   }
 
   /**
-   * Stop a session if it is needed.
+   * Stop a session by path if it exists.
    */
   async stopIfNeeded(path: string): Promise<void> {
-    // TODO
+    const session = await this.findByPath(path);
+    if (session) {
+      await this.shutdown(session.id);
+    }
   }
 
   /**

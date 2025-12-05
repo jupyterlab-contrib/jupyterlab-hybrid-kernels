@@ -1,7 +1,7 @@
 import type { KernelSpec, ServerConnection } from '@jupyterlab/services';
 import { BaseManager, KernelSpecManager } from '@jupyterlab/services';
 
-import { URLExt } from '@jupyterlab/coreutils';
+import { PageConfig, URLExt } from '@jupyterlab/coreutils';
 
 import type { IKernelSpecs } from '@jupyterlite/services';
 import { LiteKernelSpecClient } from '@jupyterlite/services';
@@ -130,7 +130,11 @@ export class HybridKernelSpecManager
         // Silently ignore errors fetching local server specs
       }
     } else {
-      const isRemoteConfigured = !!baseUrl;
+      // In remote mode, check if user has explicitly configured a remote server URL
+      // We check PageConfig directly because serverSettings.baseUrl falls back to
+      // localhost when not configured, which would cause unnecessary failed requests
+      const configuredBaseUrl = PageConfig.getOption('hybridKernelsBaseUrl');
+      const isRemoteConfigured = !!configuredBaseUrl;
 
       if (isRemoteConfigured) {
         const token = serverSettings.token;
