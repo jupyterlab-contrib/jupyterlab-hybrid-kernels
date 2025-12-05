@@ -3,3 +3,73 @@
 
     https://jupyterlab.readthedocs.io/en/stable/developer/css.html
 */
+
+/* Remote server connection status indicator */
+.jp-HybridKernels-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  margin: 0 4px;
+  border-radius: 4px;
+}
+
+.jp-HybridKernels-status.jp-HybridKernels-connected {
+  background-color: rgb(76 175 80 / 20%);
+}
+
+.jp-HybridKernels-status.jp-HybridKernels-connected:hover {
+  background-color: rgb(76 175 80 / 40%);
+}
+
+.jp-HybridKernels-status.jp-HybridKernels-connected svg path {
+  fill: var(--jp-success-color1, #4caf50);
+}
+
+.jp-HybridKernels-status.jp-HybridKernels-disconnected {
+  background-color: rgb(255 152 0 / 20%);
+}
+
+.jp-HybridKernels-status.jp-HybridKernels-disconnected:hover {
+  background-color: rgb(255 152 0 / 40%);
+}
+
+.jp-HybridKernels-status.jp-HybridKernels-disconnected svg path {
+  fill: var(--jp-warn-color1, #ff9800);
+}
+
+/* Remote server configuration dialog */
+.jp-HybridKernels-configDialog {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 400px;
+}
+
+.jp-HybridKernels-formSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.jp-HybridKernels-label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.jp-HybridKernels-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.jp-HybridKernels-help {
+  color: var(--jp-ui-font-color2);
+  margin-top: 4px;
+  display: block;
+}
+
+.jp-HybridKernels-separator {
+  border: none;
+  border-top: 1px solid var(--jp-border-color1);
+  margin: 4px 0;
+}
