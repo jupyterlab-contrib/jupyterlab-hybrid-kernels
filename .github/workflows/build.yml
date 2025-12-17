@@ -71,12 +71,13 @@ jobs:
         run: |
           python -m pip install --pre jupyterlite-core jupyterlite-pyodide-kernel jupyterlab_hybrid_kernels*.whl
       - name: Build the JupyterLite site
+        working-directory: docs
         run: |
           jupyter lite build --output-dir dist
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./docs/dist
 
   deploy_lite:
     needs: build_lite
