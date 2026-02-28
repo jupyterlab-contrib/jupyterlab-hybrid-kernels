@@ -1,0 +1,15 @@
+{
+  "jupyter.lab.shortcuts": [],
+  "jupyter.lab.toolbars": {
+    "TopBar": [
+      {
+        "name": "remote-server-status",
+        "rank": 40
+      }
+    ]
+  },
+  "title": "Hybrid Kernels",
+  "description": "Settings for hybrid kernels extension",
+  "type": "object",
+  "properties": {}
+}
