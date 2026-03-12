@@ -2,6 +2,37 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.2.1
+
+([Full Changelog](https://github.com/jupyterlab-contrib/jupyterlab-hybrid-kernels/compare/v0.2.0...83a6b74b897b2523daf8d0c06b1ff35f308e9ec0))
+
+### Bugs fixed
+
+- Fix notebook metadata drop [#43](https://github.com/jupyterlab-contrib/jupyterlab-hybrid-kernels/pull/43) ([@jtpio](https://github.com/jtpio))
+
+### Maintenance and upkeep improvements
+
+- Bump tar from 7.5.7 to 7.5.9 in /ui-tests [#35](https://github.com/jupyterlab-contrib/jupyterlab-hybrid-kernels/pull/35) ([@jtpio](https://github.com/jtpio))
+- Bump systeminformation from 5.27.14 to 5.31.1 in /ui-tests [#34](https://github.com/jupyterlab-contrib/jupyterlab-hybrid-kernels/pull/34) ([@jtpio](https://github.com/jtpio))
+- Bump lodash from 4.17.21 to 4.17.23 in /ui-tests [#31](https://github.com/jupyterlab-contrib/jupyterlab-hybrid-kernels/pull/31) ([@jtpio](https://github.com/jtpio))
+- Bump tar from 7.4.3 to 7.5.7 in /ui-tests [#30](https://github.com/jupyterlab-contrib/jupyterlab-hybrid-kernels/pull/30) ([@jtpio](https://github.com/jtpio))
+- Bump systeminformation from 5.25.11 to 5.27.14 in /ui-tests [#23](https://github.com/jupyterlab-contrib/jupyterlab-hybrid-kernels/pull/23) ([@jtpio](https://github.com/jtpio))
+
+### Documentation improvements
+
+- Deploy previews on RTD, main to GitHub Pages [#21](https://github.com/jupyterlab-contrib/jupyterlab-hybrid-kernels/pull/21) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+The following people contributed discussions, new ideas, code and documentation contributions, and review.
+See [our definition of contributors](https://github-activity.readthedocs.io/en/latest/use/#how-does-this-tool-define-contributions-in-the-reports).
+
+([GitHub contributors page for this release](https://github.com/jupyterlab-contrib/jupyterlab-hybrid-kernels/graphs/contributors?from=2025-11-26&to=2026-03-12&type=c))
+
+@jtpio ([activity](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-hybrid-kernels+involves%3Ajtpio+updated%3A2025-11-26..2026-03-12&type=Issues))
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.2.0
 
 ([Full Changelog](https://github.com/jupyterlab-contrib/jupyterlab-hybrid-kernels/compare/v0.1.2...2490d1f24f7071746dd324b345b6ec3682b52b98))
@@ -30,8 +61,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab-contrib/jupyterlab-hybrid-kernels/graphs/contributors?from=2025-04-25&to=2025-11-26&type=c))
 
 [@dependabot](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-hybrid-kernels+involves%3Adependabot+updated%3A2025-04-25..2025-11-26&type=Issues) | [@github-actions](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-hybrid-kernels+involves%3Agithub-actions+updated%3A2025-04-25..2025-11-26&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-hybrid-kernels+involves%3Ajtpio+updated%3A2025-04-25..2025-11-26&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.2.0a0
 
