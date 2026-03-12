@@ -6,6 +6,7 @@ import {
 } from '@jupyterlab/services';
 
 import type { IKernelSpecs, IKernelClient } from '@jupyterlite/services';
+import { LiteKernelSpecClient } from '@jupyterlite/services';
 
 import type { ISignal } from '@lumino/signaling';
 import { Signal } from '@lumino/signaling';
@@ -25,13 +26,19 @@ export class HybridKernelManager
       serverSettings
     });
 
+    const kernelSpecAPIClient = new LiteKernelSpecClient({
+      kernelSpecs,
+      serverSettings
+    });
+
     this._liteKernelManager = new KernelManager({
       serverSettings: {
         ...ServerConnection.makeSettings(),
         ...serverSettings,
         WebSocket
       },
-      kernelAPIClient: kernelClient
+      kernelAPIClient: kernelClient,
+      kernelSpecAPIClient
     });
     this._liteKernelSpecs = kernelSpecs;
 
