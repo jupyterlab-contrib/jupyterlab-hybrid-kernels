@@ -13,10 +13,17 @@ import { Signal } from '@lumino/signaling';
 
 import { WebSocket } from 'mock-socket';
 
+/**
+ * A hybrid kernel manager that combines in-browser (lite) kernels
+ * with remote server kernels.
+ */
 export class HybridKernelManager
   extends BaseManager
   implements Kernel.IManager
 {
+  /**
+   * Construct a new hybrid kernel manager.
+   */
   constructor(options: HybridKernelManager.IOptions) {
     super(options);
 
@@ -34,7 +41,6 @@ export class HybridKernelManager
     this._liteKernelManager = new KernelManager({
       serverSettings: {
         ...ServerConnection.makeSettings(),
-        ...serverSettings,
         WebSocket
       },
       kernelAPIClient: kernelClient,
@@ -42,7 +48,6 @@ export class HybridKernelManager
     });
     this._liteKernelSpecs = kernelSpecs;
 
-    // forward running changed signals
     this._liteKernelManager.runningChanged.connect((sender, _) => {
       const running = Array.from(this.running());
       this._runningChanged.emit(running);
@@ -53,6 +58,9 @@ export class HybridKernelManager
     });
   }
 
+  /**
+   * Dispose of the resources used by the manager.
+   */
   dispose(): void {
     this._kernelManager.dispose();
     this._liteKernelManager.dispose();
@@ -65,6 +73,7 @@ export class HybridKernelManager
   get connectionFailure(): ISignal<this, Error> {
     return this._connectionFailure;
   }
+
   /**
    * Test whether the manager is ready.
    */
@@ -82,10 +91,16 @@ export class HybridKernelManager
     ]).then(() => {});
   }
 
+  /**
+   * A signal emitted when the running kernels change.
+   */
   get runningChanged(): ISignal<this, Kernel.IModel[]> {
     return this._runningChanged;
   }
 
+  /**
+   * Connect to a running kernel.
+   */
   connectTo(
     options: Kernel.IKernelConnection.IOptions
   ): Kernel.IKernelConnection {
@@ -96,6 +111,9 @@ export class HybridKernelManager
     return this._kernelManager.connectTo(options);
   }
 
+  /**
+   * Create an iterator over the running kernels.
+   */
   running(): IterableIterator<Kernel.IModel> {
     const kernelManager = this._kernelManager;
     const liteKernelManager = this._liteKernelManager;
@@ -106,10 +124,16 @@ export class HybridKernelManager
     return combinedRunning();
   }
 
+  /**
+   * The number of running kernels.
+   */
   get runningCount(): number {
     return Array.from(this.running()).length;
   }
 
+  /**
+   * Force a refresh of the running kernels.
+   */
   async refreshRunning(): Promise<void> {
     await Promise.all([
       this._kernelManager.refreshRunning(),
@@ -117,6 +141,9 @@ export class HybridKernelManager
     ]);
   }
 
+  /**
+   * Start a new kernel.
+   */
   async startNew(
     createOptions: Kernel.IKernelOptions = {},
     connectOptions: Omit<
@@ -131,6 +158,9 @@ export class HybridKernelManager
     return this._kernelManager.startNew(createOptions, connectOptions);
   }
 
+  /**
+   * Shut down a kernel by id.
+   */
   async shutdown(id: string): Promise<void> {
     if (this._isLiteKernel({ id })) {
       return this._liteKernelManager.shutdown(id);
@@ -138,6 +168,9 @@ export class HybridKernelManager
     return this._kernelManager.shutdown(id);
   }
 
+  /**
+   * Shut down all kernels.
+   */
   async shutdownAll(): Promise<void> {
     await Promise.all([
       this._kernelManager.shutdownAll(),
@@ -145,6 +178,9 @@ export class HybridKernelManager
     ]);
   }
 
+  /**
+   * Find a kernel by id.
+   */
   async findById(id: string): Promise<Kernel.IModel | undefined> {
     const kernel = await this._kernelManager.findById(id);
     if (kernel) {
@@ -177,17 +213,12 @@ export namespace HybridKernelManager {
    */
   export interface IOptions extends BaseManager.IOptions {
     /**
-     * The server settings used by the kernel manager.
-     */
-    serverSettings?: ServerConnection.ISettings;
-
-    /**
      * The in-browser kernel client.
      */
     kernelClient: IKernelClient;
 
     /**
-     * The lite kernel specs
+     * The lite kernel specs.
      */
     kernelSpecs: IKernelSpecs;
   }
