@@ -16,13 +16,13 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - name: Base Setup
       uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
     - name: Install dependencies
-      run: python -m pip install --pre -U "jupyterlab>=4.4.0b2,<5"
+      run: python -m pip install -U "jupyterlab>=4.6.0,<5"
 
     - name: Lint the extension
       run: |
@@ -48,7 +48,7 @@ jobs:
         pip uninstall -y "jupyterlab_hybrid_kernels" jupyterlab
 
     - name: Upload extension packages
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: extension-artifacts
         path: dist/jupyterlab_hybrid_kernels*
@@ -59,22 +59,22 @@ jobs:
     needs: build
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-      - uses: actions/download-artifact@v4
+          python-version: '3.14'
+      - uses: actions/download-artifact@v8
         with:
           name: extension-artifacts
       - name: Install the dependencies
         run: |
-          python -m pip install --pre jupyterlite-core jupyterlite-pyodide-kernel jupyterlab_hybrid_kernels*.whl
+          python -m pip install jupyterlite-core jupyterlite-pyodide-kernel jupyterlab_hybrid_kernels*.whl
       - name: Build the JupyterLite site
         run: |
           jupyter lite build --output-dir dist
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./dist
 
@@ -103,9 +103,9 @@ jobs:
     - name: Install Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.9'
+        python-version: '3.14'
         architecture: 'x64'
-    - uses: actions/download-artifact@v4
+    - uses: actions/download-artifact@v8
       with:
         name: extension-artifacts
     - name: Install and Test
@@ -115,8 +115,7 @@ jobs:
         sudo rm -rf $(which node)
         sudo rm -rf $(which node)
 
-        pip install --pre "jupyterlab>=4.4.0b2,<5" jupyterlab_hybrid_kernels*.whl
-
+        pip install "jupyterlab>=4.6.0,<5" jupyterlab_hybrid_kernels*.whl
 
         jupyter labextension list
         jupyter labextension list 2>&1 | grep -ie "jupyterlab-hybrid-kernels.*OK"
@@ -132,20 +131,20 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - name: Base Setup
       uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
     - name: Download extension package
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: extension-artifacts
 
     - name: Install the extension
       run: |
         set -eux
-        python -m pip install --pre "jupyterlab>=4.4.0b2,<5" jupyterlab_hybrid_kernels*.whl
+        python -m pip install "jupyterlab>=4.6.0,<5" jupyterlab_hybrid_kernels*.whl
 
     - name: Install dependencies
       working-directory: ui-tests
@@ -155,7 +154,7 @@ jobs:
       run: jlpm install
 
     - name: Set up browser cache
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: |
           ${{ github.workspace }}/pw-browsers
@@ -172,7 +171,7 @@ jobs:
 
     - name: Upload Playwright Test report
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: jupyterlab_hybrid_kernels-playwright-tests
         path: |
@@ -184,6 +183,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
       - uses: jupyterlab/maintainer-tools/.github/actions/check-links@v1

@@ -53,17 +53,17 @@
         "watch:labextension": "jupyter labextension watch ."
     },
     "dependencies": {
-        "@jupyterlab/application": "^4.4.2",
-        "@jupyterlab/coreutils": "^6.4.2",
-        "@jupyterlab/services": "^7.4.2",
-        "@jupyterlab/settingregistry": "^4.4.2",
-        "@jupyterlite/services": "^0.7.0",
+        "@jupyterlab/application": "^4.6.0",
+        "@jupyterlab/coreutils": "^6.6.0",
+        "@jupyterlab/services": "^7.6.0",
+        "@jupyterlab/settingregistry": "^4.6.0",
+        "@jupyterlite/services": "^0.7.0 || ^0.8.0",
         "@lumino/signaling": "^2.1.5",
         "mock-socket": "^9.3.1"
     },
     "devDependencies": {
-        "@jupyterlab/builder": "^4.4.2",
-        "@jupyterlab/testutils": "^4.4.2",
+        "@jupyterlab/builder": "^4.5.0",
+        "@jupyterlab/testutils": "^4.6.0",
         "@types/json-schema": "^7.0.11",
         "@types/react": "^18.0.26",
         "@types/react-addons-linked-state-mixin": "^0.14.22",

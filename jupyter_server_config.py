@@ -4,3 +4,4 @@ c.ServerApp.tornado_settings = {
     "Cross-Origin-Embedder-Policy": "require-corp"
   }
 }
+
