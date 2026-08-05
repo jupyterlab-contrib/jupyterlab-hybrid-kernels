@@ -130,3 +130,7 @@ dmypy.json
 # JupyterLite
 .jupyterlite.doit.db
 _output/
+
+# JupyterLite Terminal
+cockle-config.json
+cockle_wasm_env/
