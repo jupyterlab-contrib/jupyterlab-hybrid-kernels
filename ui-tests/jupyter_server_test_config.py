@@ -10,3 +10,12 @@ configure_jupyter_server(c)
 
 # Uncomment to set server log level to debug level
 # c.ServerApp.log_level = "DEBUG"
+
+c.ServerApp.tornado_settings = {
+  "headers": {
+    "Cross-Origin-Opener-Policy": "same-origin",
+    "Cross-Origin-Embedder-Policy": "require-corp"
+  },
+  "static_path": "./dist/extensions/",
+  "static_url_prefix": "/extensions/"
+}
