@@ -1,0 +1,12 @@
+{
+  "packages": {
+    "git2cpp": {},
+    "nano": {},
+    "tree": {},
+    "vim": {}
+  },
+  "aliases": {
+    "git": "git2cpp",
+    "vi": "vim"
+  }
+}

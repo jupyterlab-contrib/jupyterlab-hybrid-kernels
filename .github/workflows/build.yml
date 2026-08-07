@@ -64,15 +64,22 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.14'
+
       - uses: actions/download-artifact@v8
         with:
           name: extension-artifacts
+
       - name: Install the dependencies
         run: |
           python -m pip install jupyterlite-core jupyterlite-pyodide-kernel jupyterlab_hybrid_kernels*.whl
+
+      - name: Micromamba needed for cockle_wasm_env
+        uses: mamba-org/setup-micromamba@main
+
       - name: Build the JupyterLite site
         run: |
           jupyter lite build --output-dir dist
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
@@ -163,6 +170,15 @@ jobs:
     - name: Install browser
       run: jlpm playwright install chromium
       working-directory: ui-tests
+
+    - name: Micromamba needed for cockle_wasm_env
+      uses: mamba-org/setup-micromamba@main
+      working-directory: ui-tests
+
+    - name: Build the JupyterLite site
+      working-directory: ui-tests
+      run: |
+          jupyter lite build --output-dir dist
 
     - name: Execute integration tests
       working-directory: ui-tests

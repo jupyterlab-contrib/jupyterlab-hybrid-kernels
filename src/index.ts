@@ -32,6 +32,11 @@ import { HybridKernelSpecManager } from './kernelspec';
 
 import { HybridSessionManager } from './session';
 
+import {
+  terminalLauncherPlugin,
+  terminalManagerPlugin
+} from './terminal_plugins';
+
 /**
  * Initialization data for the jupyterlab-hybrid-kernels extension.
  */
@@ -180,6 +185,8 @@ const plugins = [
   kernelManagerPlugin,
   kernelSpecManagerPlugin,
   liteKernelSpecManagerPlugin,
-  sessionManagerPlugin
+  sessionManagerPlugin,
+  terminalLauncherPlugin,
+  terminalManagerPlugin
 ];
 export default plugins;

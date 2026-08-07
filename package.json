@@ -1,7 +1,7 @@
 {
     "name": "jupyterlab-hybrid-kernels",
     "version": "0.2.1",
-    "description": "Use in-browser and regular kernels in JupyterLab",
+    "description": "Use in-browser and regular kernels and terminals in JupyterLab",
     "keywords": [
         "jupyter",
         "jupyterlab",
@@ -54,10 +54,16 @@
     },
     "dependencies": {
         "@jupyterlab/application": "^4.6.0",
+        "@jupyterlab/apputils": "^4.6.0",
         "@jupyterlab/coreutils": "^6.6.0",
+        "@jupyterlab/launcher": "^4.6.0",
         "@jupyterlab/services": "^7.6.0",
         "@jupyterlab/settingregistry": "^4.6.0",
+        "@jupyterlab/terminal": "^4.6.0",
+        "@jupyterlab/translation": "^4.6.0",
+        "@jupyterlab/ui-components": "^4.6.0",
         "@jupyterlite/services": "^0.7.0 || ^0.8.0",
+        "@jupyterlite/terminal": "^1.6.1",
         "@lumino/signaling": "^2.1.5",
         "mock-socket": "^9.3.1"
     },
@@ -101,12 +107,18 @@
         "disabledExtensions": [
             "@jupyterlab/services-extension:kernel-manager",
             "@jupyterlab/services-extension:kernel-spec-manager",
-            "@jupyterlab/services-extension:session-manager"
+            "@jupyterlab/services-extension:session-manager",
+            "@jupyterlab/services-extension:terminal-manager",
+            "@jupyterlite/terminal:manager"
         ],
         "sharedPackages": {
             "@jupyterlite/services": {
                 "singleton": true,
                 "bundled": true
+            },
+            "@jupyterlite/terminal": {
+                "singleton": true,
+                "bundled": false
             }
         }
     },
